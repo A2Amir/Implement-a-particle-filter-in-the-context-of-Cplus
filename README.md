@@ -58,4 +58,57 @@ However, GPS can be very useful to provide initial rough estimate of your locati
 
 ## Implementation of Initialization
 
+The most practical way to initialize our particles and generate real time output, is to make an initial estimate using GPS input. As with all sensor based operations, this step is impacted by noise.
+
+* Particles shall be implemented by sampling a Gaussian distribution, taking into account Gaussian sensor noise around the initial GPS position and heading estimates.
+
+* Use the [C++ standard library normal distribution](https://en.cppreference.com/w/cpp/numeric/random/normal_distribution) and [C++ standard library random engine](http://www.cplusplus.com/reference/random/default_random_engine/) functions to sample positions around GPS measurements.
+
+A function called ‘‘printSamples’’, which is based on the above criteria, that takes a GPS position (gps_x, gps_y) and an initial heading (theta) as input. The function prints out to the terminal 3 samples from a normal distribution with mean equal to the GPS position and initial heading measurements and standard deviation of 2 m for the x and y position and 0.05 radians for the heading of the car.
+
+~~~c++
+#include "iostream"
+#include <random>
+using std::normal_distribution;
+void printSimples(double gps_x,double gps_y,double theta);
+ int main(int argc, char const *argv[]) {
+     double gps_x=4983;
+     double gps_y=5029;
+     double theta = 1.201;
+
+     printSimples(gps_x,gps_y,theta);
+
+     return 0;
+ }
+ void printSimples(double gps_x, double gps_y, double theta)
+ {
+     std::default_random_engine gen;
+      //Set standard deviations for x, y, and theta
+      double std_x = 2;
+      double std_y = 2;
+      double std_theta = 0.05;
+        //  Create normal distributions for x, y and theta
+     normal_distribution<double> dist_x(gps_x,std_x);
+     normal_distribution<double> dist_y(gps_y,std_y);
+     normal_distribution<double> dist_theta(theta,std_theta);
+
+     for (int i = 0; i < 3; ++i)
+     {
+         double sample_x=dist_x(gen);
+         double sample_y=dist_y(gen);
+         double sample_theta=dist_theta(gen);
+         // Print your samples to the terminal.
+         std::cout << "Sample " << i + 1 << " " << sample_x << " " << sample_y << " "
+          << sample_theta << std::endl;
+      }
+
+ }
+~~~
+Result:
+Sample 1 4982.76 5030.37 1.20266
+Sample 2 4980.83 5026.85 1.23824
+Sample 3 4983.07 5029.93 1.30723
+
+## Prediction Step
+
 
