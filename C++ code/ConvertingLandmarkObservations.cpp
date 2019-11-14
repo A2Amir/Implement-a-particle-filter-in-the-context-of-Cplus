@@ -8,6 +8,7 @@ int main() {
   double x_part, y_part, x_obs, y_obs, theta;
   x_part = 4;
   y_part = 5;
+  // you can change x_obs,y_obs base the observation 
   x_obs = 2;
   y_obs = 2;
   theta = -M_PI/2; // -90 degrees
