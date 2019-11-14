@@ -33,7 +33,7 @@ This is an outline of steps you will need to take with the code in order to impl
 
  <p align="right"> <img src="./img/6.jpg" style="right;" alt=" Pseudocode The new set of particles" width="600" height="400"> </p> 
 
-## Initialization
+## 1. Initialization
 
 The first thing you need to do to implement a particle filter is initialize all your particles. You have to decide how many particles you want to use. This parameter is mostly decided empirically but theoretically, the particle filter will exactly represent the Bayesian posterior distribution as the number of particles approaches infinity. If you have too few particles, you will not have enough to cover all of the high likelihood positions, so you might miss the correct position.
 For instance, if each cell in the below presented  grid is equally likely to be the car’s position, and you only have three particles.
@@ -56,7 +56,7 @@ There are two main ways you can initialize your particles:
 
 However, GPS can be very useful to provide initial rough estimate of your location.
 
-## Implementation of Initialization
+### 1.1 Implementation of Initialization
 
 The most practical way to initialize our particles and generate real time output, is to make an initial estimate using GPS input. As with all sensor based operations, this step is impacted by noise.
 
@@ -110,6 +110,20 @@ Sample 1 4982.76 5030.37 1.20266,
 Sample 2 4980.83 5026.85 1.23824,
 Sample 3 4983.07 5029.93 1.30723,
 
-## Prediction Step
+## 2. Prediction Step
+
+The next part of the filter needs to implement is the prediction step. For the prediction step, we will use what you learned in the [motion models lesson](https://github.com/A2Amir/Motion-Model-of-a-Car) to predict where the car will be at the next time step.
+
+<p align="right"> <img src="./img/10.jpg" style="right;" alt=" the prediction step" width="600" height="400"> </p> 
+
+ 
+For each particle, we will have to update the particle’s location based on velocity and yaw rate measurements. To account for the uncertainty in the control input, in the project we will also add Gaussian noise to the velocity and yaw rate.
+The equations for updating x, y and the yaw angle when the yaw rate is not equal to zero:
+ 
+<p align="right"> <img src="./img/16.jpg" style="right;" alt=" to update the particle’s location based on velocity and yaw rate measurements" width="400" height="200"> </p> 
 
 
+
+If you want to practice calculating the prediction of a car’s position, assuming a basic motion model and disregarding sensor uncertainty, you can check this [jupyter notebook](https://github.com/A2Amir/Implement-a-particle-filter-in-the-context-of-Cplus/blob/master/Untitled.ipynb).
+
+## 3. Update Step
