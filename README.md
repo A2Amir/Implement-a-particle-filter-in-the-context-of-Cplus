@@ -29,7 +29,9 @@ This is an outline of steps you will need to take with the code in order to impl
  <p align="right"> <img src="./img/5.jpg" style="right;" alt=" Pseudocode the  resampling step" width="600" height="400"> </p> 
 
  
-The new set of particles represents the Bayes filter posterior probability. We now have a refined estimate of the vehicles position based on input evidence.
+5. The new set of particles represents the Bayes filter posterior probability. We now have a refined estimate of the vehicles position based on input evidence.
+
+ <p align="right"> <img src="./img/6.jpg" style="right;" alt=" Pseudocode The new set of particles" width="600" height="400"> </p> 
 
 ## Initialization
 
