@@ -105,9 +105,10 @@ void printSimples(double gps_x,double gps_y,double theta);
  }
 ~~~
 Result:
-Sample 1 4982.76 5030.37 1.20266
-Sample 2 4980.83 5026.85 1.23824
-Sample 3 4983.07 5029.93 1.30723
+
+Sample 1 4982.76 5030.37 1.20266, 
+Sample 2 4980.83 5026.85 1.23824,
+Sample 3 4983.07 5029.93 1.30723,
 
 ## Prediction Step
 
