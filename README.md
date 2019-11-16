@@ -212,7 +212,7 @@ We need to associate each transformed observation(from [example in python](https
 
  <p align="right"> <img src="./img/18.jpg" style="right;" alt=" Practicing Association " width="600" height="400"> </p> 
 
-By looking at the distances from TOBS1 to each of the 5 landmarks, we can understand for:
+By looking at the distances of each transformed Obseravation(TOBS1 to 3) to each of the 5 landmarks, we can understand for:
 
 * TOBS1(6,3) associated with L1 (5,3)
 * TOBS2 (2,2) associated with L2 (2,1)
