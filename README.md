@@ -130,5 +130,49 @@ If you want to practice calculating the prediction of a car’s position, assumi
 
 In the next few concepts, we will walk through critical step (Update) which consists of the tree steps   for localizing our car by implementing a particle filter. Our ultimate goal is determine how well each of our particle positions represents the actual position of our car. To do this, we must use car sensor and map inputs to weigh each particle.
 
-<p align="right"> <img src="./img/17.jpg" style="right;" alt="Update Step" width="400" height="200"> </p> 
+<p align="right"> <img src="./img/17.jpg" style="right;" alt="Update Step" width="600" height="400"> </p> 
+
+As you see above we will walk through this process for a single particle by:
+
+* Transforming car sensor landmark observations from the car coordinate system to the map coordinate system (Transform step)
+* Associating these transformed observations with the nearest landmark on the map (Associate step). 
+* Updating our particle weight by applying the multivariate Gaussian probability density function for each measurement (Determine measurement probabilities step),
+* Combining the probabilities of all the measurements by taking their product (Combine Probabilities step).
+
+This final weight is our posterior probability.
+
+### 3.1 Transform
+In this section we will go over the first step, transforming observations to map coordinates. 
+
+<p align="right"> <img src="./img/18.jpg" style="right;" alt=" a car (ground truth position) that observes three nearby landmarks" width="600" height="400"> </p> 
+
+In the graph above we have a car **(ground truth position)** that observes three nearby landmarks, each one labeled **OBS1, OBS2, OBS3**. Each observation measurement has x, and y values in the car's coordinate system. We have a particle **"P" (estimated position of the car)** above with position (4,5) on the map with heading -90 degrees. The first task is to transform each observation measurement from the vehicle's coordinates to the map's coordinates, with respect to our particle.
+
+Remember that by convention, we define the car’s coordinates such as X is pointed in the direction of the vehicle’s heading with y rotated plus 90 degrees or to the left perpendicular as above.
+
+We can achieve this transformation (the vehicle's coordinates to the map's coordinates) by passing our data through **a trigonometric function** that maps car coordinates to map coordinates. This function is called a homogeneous transformation and is composed of a rotation in a translation.
+
+As see bellow, we first have to rotate the map by negative 90 degrees to match the particles point of view **(Step 1)**. Then we will move the origin of the rotated map to the location of the particle **(Step 2)**. We can do both of these steps process in one matrix multiplication using the homogeneous transformation. We know that our particle has a heading of negative 90 degrees and a map location (4,5). 
+
+<p align="right"> <img src="./img/19.jpg" style="right;" alt="Step 1 and 2" width="600" height="400"> </p> 
+
+
+Observations in the car coordinate system can be transformed into map coordinates (xm and ym) by passing car observation coordinates (xc and yc ), map particle coordinates (xp  and yp ), and our rotation angle (-90 degrees) through a homogenous transformation matrix. This homogenous transformation matrix, shown below, performs rotation and translation.
+
+<p align="right"> <img src="./img/20.jpg" style="right;" alt=" a homogenous transformation matrix" width="600" height="200"> </p> 
+
+
+[Matrix multiplication](https://www.mathsisfun.com/algebra/matrix-multiplying.html) results in:
+
+<p align="right"> <img src="./img/21.jpg" style="right;" alt=" a homogenous transformation matrix multiplication" width="300" height="200"> </p> 
+
+
+
+To summarize:
+* This homogeneous transformation is a transformation from car coordinates to map coordinates in the maps frame.
+* Using our observations in the car coordinate system and our particle pose in the map system, we have everything we need to transform observations into map coordinates and ultimately determine the final weight of our particle
+* This video is a great resource for developing a deeper understanding of how to solve this transformation problem.
+* Here are some example in the context of [python]() and [C++]() code to get better intuition.
+
+
 
