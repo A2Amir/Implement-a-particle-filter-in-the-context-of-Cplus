@@ -176,7 +176,7 @@ To summarize:
 
 
 
-### 3.1 Association
+### 3.2 Association
 
 #### Data Association problom: Nearest Neighbor
 
@@ -219,4 +219,6 @@ By looking at the distances of each transformed Obseravation(TOBS1 to 3) to each
 * TOBS3(0,5)   associated with L5 (4,7) (TOBS3 can be associated with either L2, or L5, since they are the same distance apart)
 
 
+
+### 3.3 Update Weights
 
