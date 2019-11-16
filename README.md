@@ -176,3 +176,21 @@ To summarize:
 
 
 
+### 3.1 Association
+
+#### 3.1.1 Data Association problom: Nearest Neighbor
+
+Before we can use landmark measurements of the objects around us to update the belief of our position, we have to solve the data association problem. Data association is the problem of matching landmark measurements (feature measurement) to objects in the real world (map landmarks).
+
+
+<p align="right"> <img src="./img/22.jpg" style="right;" alt=" landmark measurements (feature measurement) to objects in the real world (map landmarks)." width="600" height="400"> </p> 
+
+Let’s look at an example below to show why data association is important. We can assume that we are confident that we have two lidar sensor measurements (blue and red line in the gif).Which of these two measurements corresponds to the rock? If we pick the top measurement, then we will estimate that the true position of the car is actually here (see gif). If we pick the bottom measurement then we will estimate that the true position of the car is here(see gif).  how do we pick the right measurement?
+
+
+<p align="right"> <img src="./img/0.gif" style="right;" alt=" an example below to show why data association is important" width="600" height="400"> </p> 
+
+
+
+
+
