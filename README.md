@@ -191,6 +191,16 @@ Let’s look at an example below to show why data association is important. We c
 <p align="right"> <img src="./img/0.gif" style="right;" alt=" an example below to show why data association is important" width="600" height="400"> </p> 
 
 
+For the self-driving car, you might have a map with landmarks, shown in blue, and lidar measurements, shown in orange. Oftentimes, you have some map landmarks that have multiple lidar measurements that could correspond to it (see below figure).
 
+<p align="right"> <img src="./img/13.jpg" style="right;" alt=" multiple lidar measurements " width="600" height="400"> </p> 
 
+To pick the right correspondents, we can use a very simple technique called nearest neighbor. In this method, simply take the closest measurement as the correct correspondents, like the circled map landmark and lidar measurement.
 
+<p align="right"> <img src="./img/14.jpg" style="right;" alt=" nearest neighbor" width="600" height="400"> </p> 
+
+**Notice: Nearest neighbor data association has some advantage that should be taken into consideration.**
+ 
+ <p align="right"> <img src="./img/15.jpg" style="right;" alt=" nearest neighbor" width="600" height="400"> </p> 
+
+High signal to noise ratio for sensors and a very accurate motion model are characteristics of the input data that help nearest neighbor data association becomes more effective. Next you will learn about practicing Association.
