@@ -178,7 +178,7 @@ To summarize:
 
 ### 3.1 Association
 
-#### 3.1.1 Data Association problom: Nearest Neighbor
+#### Data Association problom: Nearest Neighbor
 
 Before we can use landmark measurements of the objects around us to update the belief of our position, we have to solve the data association problem. Data association is the problem of matching landmark measurements (feature measurement) to objects in the real world (map landmarks).
 
