@@ -154,7 +154,7 @@ We can achieve this transformation (the vehicle's coordinates to the map's coord
 
 As see bellow, we first have to rotate the map by negative 90 degrees to match the particles point of view **(Step 1)**. Then we will move the origin of the rotated map to the location of the particle **(Step 2)**. We can do both of these steps process in one matrix multiplication using the homogeneous transformation. We know that our particle has a heading of negative 90 degrees and a map location (4,5). 
 
-<p align="right"> <img src="./img/19.jpg" style="right;" alt="Step 1 and 2" width="600" height="400"> </p> 
+<p align="right"> <img src="./img/19.jpg" style="right;" alt="Step 1 and 2" width="800" height="500"> </p> 
 
 
 Observations in the car coordinate system can be transformed into map coordinates (xm and ym) by passing car observation coordinates (xc and yc ), map particle coordinates (xp  and yp ), and our rotation angle (-90 degrees) through a homogenous transformation matrix. This homogenous transformation matrix, shown below, performs rotation and translation.
@@ -172,7 +172,7 @@ To summarize:
 * This homogeneous transformation is a transformation from car coordinates to map coordinates in the maps frame.
 * Using our observations in the car coordinate system and our particle pose in the map system, we have everything we need to transform observations into map coordinates and ultimately determine the final weight of our particle
 * This video is a great resource for developing a deeper understanding of how to solve this transformation problem.
-* Here are some example in the context of [python]() and [C++]() code to get better intuition.
+* Here are some example in the context of [python](https://github.com/A2Amir/Implement-a-particle-filter-in-the-context-of-Cplus/blob/master/Practice.ipynb) and [C++](https://github.com/A2Amir/Implement-a-particle-filter-in-the-context-of-Cplus/blob/master/C%2B%2B%20code/ConvertingLandmarkObservations.cpp) code to get better intuition.
 
 
 
