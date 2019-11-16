@@ -203,4 +203,13 @@ To pick the right correspondents, we can use a very simple technique called near
  
  <p align="right"> <img src="./img/15.jpg" style="right;" alt=" nearest neighbor" width="600" height="400"> </p> 
 
-High signal to noise ratio for sensors and a very accurate motion model are characteristics of the input data that help nearest neighbor data association becomes more effective. Next you will learn about practicing Association.
+**High signal to noise ratio for sensors and a very accurate motion model are characteristics of the input data that help nearest neighbor data association becomes more effective. Next you will learn about practicing Association.**
+
+#### Practicing Association 
+
+Now that observations have been transformed into the map's coordinate space, the next step is to associate each transformed observation with a landmark identifier. In the map below we have 5 total landmarks each identified as L1, L2, L3, L4, L5, and each with a known map location.
+We need to associate each transformed observation(from [example in python](https://github.com/A2Amir/Implement-a-particle-filter-in-the-context-of-Cplus/blob/master/Practice.ipynb)) TOBS1 (6,3), TOBS2(2,2), TOBS3(0,5)  with one of these 5 identifiers. To do this we must associate the closest landmark to each transformed observation.
+
+ <p align="right"> <img src="./img/18.jpg" style="right;" alt=" Practicing Association " width="600" height="400"> </p> 
+
+
