@@ -127,3 +127,8 @@ The equations for updating x, y and the yaw angle when the yaw rate is not equal
 If you want to practice calculating the prediction of a car’s position, assuming a basic motion model and disregarding sensor uncertainty, you can check this [jupyter notebook](https://github.com/A2Amir/Implement-a-particle-filter-in-the-context-of-Cplus/blob/master/Practice.ipynb).
 
 ## 3. Update Step
+
+In the next few concepts, we will walk through critical step (Update) which consists of the tree steps   for localizing our car by implementing a particle filter. Our ultimate goal is determine how well each of our particle positions represents the actual position of our car. To do this, we must use car sensor and map inputs to weigh each particle.
+
+<p align="right"> <img src="./img/17.jpg" style="right;" alt="Update Step" width="400" height="200"> </p> 
+
