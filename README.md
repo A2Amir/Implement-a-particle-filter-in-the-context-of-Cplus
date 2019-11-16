@@ -171,7 +171,7 @@ Observations in the car coordinate system can be transformed into map coordinate
 To summarize:
 * This homogeneous transformation is a transformation from car coordinates to map coordinates in the maps frame.
 * Using our observations in the car coordinate system and our particle pose in the map system, we have everything we need to transform observations into map coordinates and ultimately determine the final weight of our particle
-* This video is a great resource for developing a deeper understanding of how to solve this transformation problem.
+* This [video](https://www.youtube.com/watch?v=h11ljFJeaLo&feature=youtu.be) is a great resource for developing a deeper understanding of how to solve this transformation problem.
 * Here are some example in the context of [python](https://github.com/A2Amir/Implement-a-particle-filter-in-the-context-of-Cplus/blob/master/Practice.ipynb) and [C++](https://github.com/A2Amir/Implement-a-particle-filter-in-the-context-of-Cplus/blob/master/C%2B%2B%20code/ConvertingLandmarkObservations.cpp) code to get better intuition.
 
 
