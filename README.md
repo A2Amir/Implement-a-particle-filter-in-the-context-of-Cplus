@@ -285,5 +285,5 @@ To do this, simply take the root squared error between each particle and ground 
 Another possibility is to just look at the best, or the highest-weighted particle, and simply take the root squared error of this particle. 
 
 **Note**
- <p align="right"> <img src="./img/31.jpg" style="center;" alt="Calculating Error" width="600" height="400"> </p> 
+ <p align="right"> <img src="./img/31.jpg" style="center;" alt="Calculating Error" > </p> 
 
