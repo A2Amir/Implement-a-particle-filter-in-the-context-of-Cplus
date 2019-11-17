@@ -257,7 +257,7 @@ Similarly, as the y variance term increases (above), the uncertainty in the y di
 The off diagonal terms of the covariance matrix represent the correlation between the two variables.
 For instance, if x increases as y increases, For the project, we will assume the different variables in the sensor measurement are independent, and therefore the off diagonal terms are 0. However, this is often not the case in practice.
 
- <p align="right"> <img src="./img/27.jpg" style="right;" alt="the correlation between the two variables." width="600" height="400"> </p> 
+ <p align="right"> <img src="./img/27.jpg" style="right;" alt="the correlation between the two variables." width="600" height="200"> </p> 
  
 
 
