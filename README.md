@@ -259,6 +259,12 @@ For instance, if x increases as y increases, For the project, we will assume the
 
  <p align="right"> <img src="./img/27.jpg" style="right;" alt="the correlation between the two variables." width="600" height="200"> </p> 
  
+ Now we have done the measurement transformations and associations, we have all the pieces we need to calculate the particle's final weight. The particles final weight will be calculated as the product of each measurement's Multivariate-Gaussian probability density.
+The Multivariate-Gaussian probability density has two dimensions, x and y. The mean of the Multivariate-Gaussian is the measurement's associated landmark position and the Multivariate-Gaussian's standard deviation is described by our initial uncertainty in the x and y ranges. The Multivariate-Gaussian is evaluated at the point of the transformed measurement's position. The formula for the Multivariate-Gaussian can be seen below.
+
+ <p align="right"> <img src="./img/28.jpg" style="center;" alt="The Multivariate-Gaussian" width="400" height="200"> </p> 
+ 
+ 
 
 
 
