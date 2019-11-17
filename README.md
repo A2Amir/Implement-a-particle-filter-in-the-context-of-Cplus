@@ -282,6 +282,9 @@ To assess how accurate your position estimates were, we are given  the ground tr
 
 To do this, simply take the root squared error between each particle and ground truth, and multiply it by the particle’s weight. Remember that in this equation, Pi and g are vectors that contain the x position, y position, and yaw of the car in map coordinates. Then, you have to divide by the sum of the weights.
 
+ <p align="right"> <img src="./img/30.jpg" style="center;" alt="Calculating Error" width="600" height="400"> </p> 
+
+
 Another possibility is to just look at the best, or the highest-weighted particle, and simply take the root squared error of this particle. 
 
 **Note**
