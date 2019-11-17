@@ -222,3 +222,14 @@ By looking at the distances of each transformed Obseravation(TOBS1 to 3) to each
 
 ### 3.3 Update Weights
 
+You have learned in the prediction step how to incorporate velocity and yaw rate measurements into the particle filter. But what about sensor measurements, such as readings from radar or lidar? Or how to update particle weights based on LIDAR and RADAR readings of landmarks. These landmark measurements (feature measurement) will be used to compute the update step, which you saw before in the Bayesian filter.
+
+ <p align="right"> <img src="./img/22.jpg" style="right;" alt="landmark measurements (feature measurement) will be used to compute the update step" width="600" height="400"> </p> 
+ 
+ Instead of the feature measurements directly affecting the prediction of the state of the car, the measurements will instead inform the weight of each particle. The size of each particle in the below visualization correlates with its weight.
+ 
+ 
+ <p align="right"> <img src="./img/23.jpg" style="right;" alt="visualization correlates with its weight" width="600" height="400"> </p> 
+
+
+
