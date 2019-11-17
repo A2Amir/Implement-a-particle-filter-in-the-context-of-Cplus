@@ -269,8 +269,8 @@ The Multivariate-Gaussian probability density has two dimensions, x and y. The m
  
 * The standard deviation described the initial uncertainty in the x and y ranges.
 *	x and y are the observations in map coordinates from transformation section and μx, μy are the coordinates of the nearest landmarks. These should correspond to the correct responses from association section.
+* Here are some example in the context of [python](https://github.com/A2Amir/Implement-a-particle-filter-in-the-context-of-Cplus/blob/master/Practice.ipynb) and [C++](https://github.com/A2Amir/Implement-a-particle-filter-in-the-context-of-Cplus/blob/master/C%2B%2B%20code/multiv_gauss.cpp) code to get better intuition.
 
-C++ code and python code
 
 
 
