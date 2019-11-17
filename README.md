@@ -272,7 +272,11 @@ The Multivariate-Gaussian probability density has two dimensions, x and y. The m
 * Here are some example in the context of [python](https://github.com/A2Amir/Implement-a-particle-filter-in-the-context-of-Cplus/blob/master/Practice.ipynb) and [C++](https://github.com/A2Amir/Implement-a-particle-filter-in-the-context-of-Cplus/blob/master/C%2B%2B%20code/multiv_gauss.cpp) code to get better intuition.
 
 
+## 3. Calculating Error
 
+To assess how accurate your position estimates were, we are given  the ground truth position of the car for every time step and results, which we have from performing particle filter. We will now discuss two different way to quantify the difference between our results and the ground truth. One way you could report your error is to take the weighted average error of all the particles.
+
+ <p align="center"> <img src="./img/29.jpg" style="center;" alt="Calculating Error" width="600" height="400"> </p> 
 
 
 
