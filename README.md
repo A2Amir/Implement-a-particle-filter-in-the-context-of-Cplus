@@ -236,5 +236,9 @@ You have learned in the prediction step how to incorporate velocity and yaw rate
 One way to update the weights of the particles is to use the multivariate Gaussian probability density function for each measurement and combine the likelihoods of all the measurements by taking their product. 
 The multivariate Gaussian function(shown below) tells us how likely a set of landmark measurements is, given our predicted state of the car and the assumption that the sensors have Gaussian noise. We also assume each landmark measurement is independent, so we will take the product of the likelihoods over all measurements.
 
- <p align="right"> <img src="./img/29.jpg" style="right;" alt="The multivariate Gaussian function" width="600" height="400"> </p> 
+ <p align="right"> <img src="./img/24.jpg" style="right;" alt="The multivariate Gaussian function" width="600" height="400"> </p> 
 
+* x<sub>i</sub> represents the ith landmark measurement for one particular particle.
+* mu<sub>i</sub>  represents the predicted measurement for the map landmark corresponding to the ith measurement.
+* mis the total number of measurements for one particle.
+* sigma is the covariance of the measurement.
