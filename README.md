@@ -240,5 +240,27 @@ The multivariate Gaussian function(shown below) tells us how likely a set of lan
 
 * x<sub>i</sub> represents the ith landmark measurement for one particular particle.
 * mu<sub>i</sub>  represents the predicted measurement for the map landmark corresponding to the ith measurement.
-* mis the total number of measurements for one particle.
+* m is the total number of measurements for one particle.
 * sigma is the covariance of the measurement.
+
+The covariance matrix (sigma) is a symmetric square matrix that contains the variance, or uncertainty of each variable in the sensor measurement, as well as the covariance, or correlation, between these variables.
+
+ <p align="right"> <img src="./img/25.jpg" style="right;" alt="The covariance matrix (sigma)" width="600" height="400"> </p> 
+
+In the case of lidar, the variables would be the x and y position of the landmark and vehicle coordinates. The diagonal terms of the covariance matrix, which is the standard deviation of the variable squared.
+
+Below, the orange ovals around each lidar measurement are geometric representations of some covariance matrices. Notice how the covariance changes as you change the diagonal terms. As the x variance term increases, the uncertainty in the x direction also increases.
+ <p align="right"> <img src="./img/26.jpg" style="right;" alt="As the x variance term increases, the uncertainty in the x direction also increases." width="600" height="400"> </p> 
+ 
+Similarly, as the y variance term increases (above), the uncertainty in the y direction also increases. You can think of the covariance matrix as an inverse matrix of weights. The smaller the diagonal term for a certain variable, the more you can trust this variable in the measurement and the higher the weight we can put on it.
+
+The off diagonal terms of the covariance matrix represent the correlation between the two variables.
+For instance, if x increases as y increases, For the project, we will assume the different variables in the sensor measurement are independent, and therefore the off diagonal terms are 0. However, this is often not the case in practice.
+
+ <p align="right"> <img src="./img/27.jpg" style="right;" alt="the correlation between the two variables." width="600" height="400"> </p> 
+ 
+
+
+
+
+
