@@ -402,10 +402,66 @@ The Multivariate-Gaussian probability density has two dimensions, x and y. The m
  
 * The standard deviation described the initial uncertainty in the x and y ranges.
 *	x and y are the observations in map coordinates from transformation section and μx, μy are the coordinates of the nearest landmarks. These should correspond to the correct responses from association section.
-* Here are some example in the context of [python](https://github.com/A2Amir/Implement-a-particle-filter-in-the-context-of-Cplus/blob/master/Practice.ipynb) and [C++](https://github.com/A2Amir/Implement-a-particle-filter-in-the-context-of-Cplus/blob/master/C%2B%2B%20code/multiv_gauss.cpp) code to get better intuition.
+* Here are some example in the context of [python](https://github.com/A2Amir/Implement-a-particle-filter-in-the-context-of-Cplus/blob/master/Practice.ipynb) and [C++](https://github.com/A2Amir/Implement-a-particle-filter-in-the-context-of-Cplus/blob/master/src/multiv_gauss.cpp) code to get better intuition.
 
 
-## 4. Calculating Error
+Implemention of the Update Weights  in the [Particle Filter](https://github.com/A2Amir/Implement-a-particle-filter-in-the-context-of-Cplus/blob/master/src/particle_filter.cpp) which contains all previous steps (Transform,finding the nearest landmark,Association and Gaussian)
+
+~~~c++
+void ParticleFilter::updateWeights(double sensor_range, double std_landmark[],
+                                   const vector<LandmarkObs> &observations,
+                                   const Map &map) {
+
+    // Clear weights
+    weights.clear();
+
+
+
+    // Go over all particles
+    for (Particle &particle : particles) {
+
+        std::vector<LandmarkObs> predictions = FindnearbyLandmarks(particle.x, particle.y, sensor_range,
+                                                                    map.landmark_list);
+        /*
+                     Step1, transformation from OBSx to TOBSx.
+                            The observations are given in the VEHICLE'S coordinate system.
+                            These codes would first convert the VEHICLE's coordinate
+                            obs to the MAP's coord.
+         */
+        std::vector<LandmarkObs> transposedObservations = transform(observations, particle.x, particle.y,
+                                                                    particle.theta);
+
+        // Associate landmarks and observations
+        dataAssociation(predictions, transposedObservations);
+
+        // Re-calculate weight of the particle
+        particle.weight = 1;
+        for (LandmarkObs &observation : transposedObservations)
+        {
+
+            // Find the prediction for this observation
+            auto it = std::find_if(predictions.begin(), predictions.end(),[&observation](const LandmarkObs &prediction)
+                        {return prediction.id == observation.id;});
+
+            // If prediction is found, calculate Multivariate-Gaussian Probability and multiply with previous
+            if (it != predictions.end()) {
+                particle.weight *= MultivariateGaussian(*it, observation, std_landmark);
+            }
+        }
+
+        // Update weights vector for re-sampling
+        weights.push_back(particle.weight);
+    }
+
+    assert(weights.size() == particles.size());
+
+}
+
+~~~
+
+## 4.Resampling
+
+## 5. Calculating Error
 
 To assess how accurate your position estimates were, we are given  the ground truth position of the car for every time step and results, which we have from performing particle filter. We will now discuss two different way to quantify the difference between our results and the ground truth. One way you could report your error is to take the weighted average error of all the particles.
 
@@ -424,14 +480,14 @@ Another possibility is to just look at the best, or the highest-weighted particl
  <p align="right"> <img src="./img/31.jpg" style="center;" alt="Calculating Error" > </p> 
  
  
-## 5. Implementing the Particle Filter
+## 6. Implementing the Particle Filter
  
-### 5.1 Project Introduction
+### 6.1 Project Introduction
 
 Your robot has been kidnapped and transported to a new location! Luckily it has a map of this location, a (noisy) GPS estimate of its initial location, and lots of (noisy) sensor and control data.
 In this project you will implement a 2 dimensional particle filter in C++. Your particle filter will be given a map and some initial localization information (analogous to what a GPS would provide). At each time step your filter will also get observation and control data.
 
-### 5.2 Running the Code
+### 6.2 Running the Code
 
 This project involves the Term 2 Simulator which can be downloaded [here](https://github.com/udacity/self-driving-car-sim/releases).
 This repository includes two files that can be used to set up and install uWebSocketIO for either Linux or Mac systems. For windows you can use either Docker, VMware, or even Windows 10 Bash on Ubuntu to install uWebSocketIO.
@@ -481,7 +537,7 @@ Here is the main protocol that [main.cpp]() uses for uWebSocketIO in communicati
     1.	["best_particle_sense_x"] <= list of sensed x positions
     2.	["best_particle_sense_y"] <= list of sensed y positions
     
-### 5.2 The directory structure is as follows:
+### 6.2 The directory structure is as follows:
 
 
       root
