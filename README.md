@@ -383,3 +383,8 @@ Here is the main protocol that [main.cpp]() uses for uWebSocketIO in communicati
           |   printSamples.cpp (to practice)
           |   multiv_gauss.cpp (to practice)
 
+[map_data.txt]() includes the position of landmarks (in meters) on an arbitrary Cartesian coordinate system. Each row has three columns
+   1.	x position
+   2.	y position
+   3.	landmark id
+
