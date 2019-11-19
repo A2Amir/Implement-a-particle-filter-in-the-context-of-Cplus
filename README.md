@@ -113,15 +113,9 @@ Sample 3 4983.07 5029.93 1.30723,
 
 Implemention of the Initialization in the [Particle Filter](https://github.com/A2Amir/Implement-a-particle-filter-in-the-context-of-Cplus/blob/master/src/particle_filter.cpp)
 ~~~c++
-void ParticleFilter::init(double x, double y, double theta, double std[]) {
-  /**
-   * TODO: Set the number of particles. Initialize all particles to
-   *   first position (based on estimates of x, y, theta and their uncertainties
-   *   from GPS) and all weights to 1.
-   * TODO: Add random Gaussian noise to each particle.
-   * NOTE: Consult particle_filter.h for more information about this method
-   *   (and others in this file).
-   */
+void ParticleFilter::init(double x, double y, double theta, double std[])
+{
+
   num_particles = 100;  // TODO: Set the number of particles
   normal_distribution<double> dist_x(x,std[0]);
   normal_distribution<double> dist_y(y,std[1]);
@@ -141,7 +135,7 @@ void ParticleFilter::init(double x, double y, double theta, double std[]) {
 
   }
   is_initialized=true;
-
+}
 ~~~
 
 ## 2. Prediction Step
@@ -249,9 +243,23 @@ To summarize:
 * This homogeneous transformation is a transformation from car coordinates to map coordinates in the maps frame.
 * Using our observations in the car coordinate system and our particle pose in the map system, we have everything we need to transform observations into map coordinates and ultimately determine the final weight of our particle
 * This [video](https://www.youtube.com/watch?v=h11ljFJeaLo&feature=youtu.be) is a great resource for developing a deeper understanding of how to solve this transformation problem.
-* Here are some example in the context of [python](https://github.com/A2Amir/Implement-a-particle-filter-in-the-context-of-Cplus/blob/master/Practice.ipynb) and [C++](https://github.com/A2Amir/Implement-a-particle-filter-in-the-context-of-Cplus/blob/master/C%2B%2B%20code/ConvertingLandmarkObservations.cpp) code to get better intuition.
+* Here are some example in the context of [python](https://github.com/A2Amir/Implement-a-particle-filter-in-the-context-of-Cplus/blob/master/Practice.ipynb) and [C++](https://github.com/A2Amir/Implement-a-particle-filter-in-the-context-of-Cplus/blob/master/src/ConvertingLandmarkObservations.cpp) code to get better intuition.
 
 
+Implemention of the Transform Step in the [Particle Filter](https://github.com/A2Amir/Implement-a-particle-filter-in-the-context-of-Cplus/blob/master/src/particle_filter.cpp)
+
+~~~c++
+std::vector<LandmarkObs> ParticleFilter::transform(std::vector<LandmarkObs> observations, double x, double y, double theta)
+{
+    vector<LandmarkObs> result;
+    for (LandmarkObs observation: observations) {
+        double xNew = cos(theta) * observation.x - sin(theta) * observation.y + x;
+        double yNew = sin(theta) * observation.x + cos(theta) * observation.y + y;
+        result.push_back({observation.id, xNew, yNew});
+    }
+    return result;
+}
+~~~
 
 ### 3.2 Association
 
