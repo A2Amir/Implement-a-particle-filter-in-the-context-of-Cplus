@@ -461,6 +461,42 @@ void ParticleFilter::updateWeights(double sensor_range, double std_landmark[],
 
 ## 4.Resampling
 
+
+Implemention of the Resampling step  in the [Particle Filter](https://github.com/A2Amir/Implement-a-particle-filter-in-the-context-of-Cplus/blob/master/src/particle_filter.cpp).
+
+~~~c++
+void ParticleFilter::resample()
+{
+
+   default_random_engine gen;
+
+    vector<Particle> new_particles;
+
+    vector<double> weights;
+    for(int i=0; i<num_particles; i++)
+    {
+      weights.push_back(particles[i].weight);
+    }
+    std::uniform_real_distribution<double> unirealdist(0.0,1.0);
+    int index   = int(unirealdist(gen) * num_particles);
+    double beta = 0.0;
+    double mw   = *max_element(weights.begin(), weights.end());
+    for(int i=0; i<num_particles; i++)
+    {
+      beta += unirealdist(gen) * 2.0 * mw;
+      while(beta > weights[index])
+      {
+        beta -= weights[index];
+        index = (index+1) % num_particles;
+      }
+      new_particles.push_back(particles[index]);
+    }
+    particles = new_particles;
+}
+~~~
+
+
+
 ## 5. Calculating Error
 
 To assess how accurate your position estimates were, we are given  the ground truth position of the car for every time step and results, which we have from performing particle filter. We will now discuss two different way to quantify the difference between our results and the ground truth. One way you could report your error is to take the weighted average error of all the particles.
