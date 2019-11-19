@@ -351,35 +351,35 @@ Here is the main protocol that [main.cpp]() uses for uWebSocketIO in communicati
 ### 5.2 The directory structure is as follows:
 
 
-root
-|   build.sh
-|   clean.sh
-|   CMakeLists.txt
-|   README.md
-|   run.sh
-|   README.md
-|   Practice.ipynb
-|   LICENSE
-|   .gitattributes
-|   .gitignore
-|
-|___img
-|   |   images
-|     
-|
-|
-|___data
-|   |   
-|   |   map_data.txt
-|   
-|   
-|___src
-    |   helper_functions.h
-    |   main.cpp
-    |   map.h
-    |   particle_filter.cpp
-    |   particle_filter.h
-    |   ConvertingLandmarkObservations.cpp (to practice)
-    |   printSamples.cpp (to practice)
-    |   multiv_gauss.cpp (to practice)
+      root
+      |   build.sh
+      |   clean.sh
+      |   CMakeLists.txt
+      |   README.md
+      |   run.sh
+      |   README.md
+      |   Practice.ipynb
+      |   LICENSE
+      |   .gitattributes
+      |   .gitignore
+      |
+      |___img
+      |   |   images
+      |     
+      |
+      |
+      |___data
+      |   |   
+      |   |   map_data.txt
+      |   
+      |   
+      |___src
+          |   helper_functions.h
+          |   main.cpp
+          |   map.h
+          |   particle_filter.cpp
+          |   particle_filter.h
+          |   ConvertingLandmarkObservations.cpp (to practice)
+          |   printSamples.cpp (to practice)
+          |   multiv_gauss.cpp (to practice)
 
