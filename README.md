@@ -64,7 +64,7 @@ The most practical way to initialize our particles and generate real time output
 
 * Use the [C++ standard library normal distribution](https://en.cppreference.com/w/cpp/numeric/random/normal_distribution) and [C++ standard library random engine](http://www.cplusplus.com/reference/random/default_random_engine/) functions to sample positions around GPS measurements.
 
-A function called ‘‘[printSamples](https://github.com/A2Amir/Implement-a-particle-filter-in-the-context-of-Cplus/blob/master/C%2B%2B%20code/printSamples.cpp)’’, which is based on the above criteria, that takes a GPS position (gps_x, gps_y) and an initial heading (theta) as input. The function prints out to the terminal 3 samples from a normal distribution with mean equal to the GPS position and initial heading measurements and standard deviation of 2 m for the x and y position and 0.05 radians for the heading of the car.
+To practice a function called ‘‘[printSamples](https://github.com/A2Amir/Implement-a-particle-filter-in-the-context-of-Cplus/blob/master/src/printSamples.cpp)’’, which is based on the above criteria, that takes a GPS position (gps_x, gps_y) and an initial heading (theta) as input. The function prints out to the terminal 3 samples from a normal distribution with mean equal to the GPS position and initial heading measurements and standard deviation of 2 m for the x and y position and 0.05 radians for the heading of the car.
 
 ~~~c++
 #include "iostream"
@@ -110,6 +110,40 @@ Sample 1 4982.76 5030.37 1.20266,
 Sample 2 4980.83 5026.85 1.23824,
 Sample 3 4983.07 5029.93 1.30723,
 
+
+Implemention of the Initialization in the [Particle Filter](https://github.com/A2Amir/Implement-a-particle-filter-in-the-context-of-Cplus/blob/master/src/particle_filter.cpp)
+~~~c++
+void ParticleFilter::init(double x, double y, double theta, double std[]) {
+  /**
+   * TODO: Set the number of particles. Initialize all particles to
+   *   first position (based on estimates of x, y, theta and their uncertainties
+   *   from GPS) and all weights to 1.
+   * TODO: Add random Gaussian noise to each particle.
+   * NOTE: Consult particle_filter.h for more information about this method
+   *   (and others in this file).
+   */
+  num_particles = 100;  // TODO: Set the number of particles
+  normal_distribution<double> dist_x(x,std[0]);
+  normal_distribution<double> dist_y(y,std[1]);
+  normal_distribution<double> dist_theta(theta,std[2]);
+  default_random_engine gen;
+  for (int i = 0; i < num_particles; i++)
+  {
+    Particle currentParticle;
+    currentParticle.id=i;
+    currentParticle.x=dist_x(gen);
+    currentParticle.y=dist_y(gen);
+    currentParticle.theta=dist_theta(gen);
+    currentParticle.weight=1.0;
+
+    particles.push_back(currentParticle);
+    weights.push_back(currentParticle.weight);
+
+  }
+  is_initialized=true;
+
+~~~
+
 ## 2. Prediction Step
 
 The next part of the filter needs to implement is the prediction step. For the prediction step, we will use what you learned in the [motion models lesson](https://github.com/A2Amir/Motion-Model-of-a-Car) to predict where the car will be at the next time step.
@@ -125,6 +159,49 @@ The equations for updating x, y and the yaw angle when the yaw rate is not equal
 
 
 If you want to practice calculating the prediction of a car’s position, assuming a basic motion model and disregarding sensor uncertainty, you can check this [jupyter notebook](https://github.com/A2Amir/Implement-a-particle-filter-in-the-context-of-Cplus/blob/master/Practice.ipynb).
+
+
+Implemention of the prediction Step in the [Particle Filter](https://github.com/A2Amir/Implement-a-particle-filter-in-the-context-of-Cplus/blob/master/src/particle_filter.cpp)
+
+~~~c++
+void ParticleFilter::prediction(double delta_t, double std_pos[],double velocity, double yaw_rate)
+{
+
+   default_random_engine eng;
+   for (int i = 0; i < num_particles; i++)
+   {
+        double particle_x=particles[i].x;
+        double particle_y=particles[i].y;
+        double particle_theta=particles[i].theta;
+        double pred_x;
+        double pred_y;
+        double pred_theta;
+        if (fabs(yaw_rate)<0.0001)
+        {
+            pred_x=particle_x+velocity*cos(particle_theta)*delta_t;
+            pred_y=particle_y+velocity*sin(particle_theta)*delta_t;
+            pred_theta=particle_theta;
+        }else
+        {
+            pred_x=particle_x+(velocity/yaw_rate)*(sin(particle_theta+(yaw_rate*delta_t))-sin(particle_theta));
+            pred_y=particle_y+(velocity/yaw_rate)*(cos(particle_theta)-cos(particle_theta+ (yaw_rate*delta_t)));
+            pred_x=particle_theta+(yaw_rate*delta_t);
+
+        }
+        normal_distribution<double> dist_x(pred_x,std_pos[0]);
+        normal_distribution<double> dist_y(pred_y,std_pos[1]);
+        normal_distribution<double> dist_theta(pred_theta,std_pos[2]);
+        default_random_engine gen;
+
+        // Set particle state
+        particles[i].x = dist_x(gen);
+        particles[i].y = dist_y(gen);
+        particles[i].theta = dist_theta(gen);
+   }
+}
+
+
+~~~
 
 ## 3. Update Step
 
