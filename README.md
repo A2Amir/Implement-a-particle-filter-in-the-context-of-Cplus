@@ -222,3 +222,128 @@ By looking at the distances of each transformed Obseravation(TOBS1 to 3) to each
 
 ### 3.3 Update Weights
 
+You have learned in the prediction step how to incorporate velocity and yaw rate measurements into the particle filter. But what about sensor measurements, such as readings from radar or lidar? Or how to update particle weights based on LIDAR and RADAR readings of landmarks. These landmark measurements (feature measurement) will be used to compute the update step, which you saw before in the Bayesian filter.
+
+ <p align="right"> <img src="./img/22.jpg" style="right;" alt="landmark measurements (feature measurement) will be used to compute the update step" width="600" height="400"> </p> 
+ 
+ Instead of the feature measurements directly affecting the prediction of the state of the car, the measurements will instead inform the weight of each particle. The size of each particle in the below visualization correlates with its weight.
+ 
+ 
+ <p align="right"> <img src="./img/23.jpg" style="right;" alt="visualization correlates with its weight" width="600" height="400"> </p> 
+
+
+
+One way to update the weights of the particles is to use the multivariate Gaussian probability density function for each measurement and combine the likelihoods of all the measurements by taking their product. 
+The multivariate Gaussian function(shown below) tells us how likely a set of landmark measurements is, given our predicted state of the car and the assumption that the sensors have Gaussian noise. We also assume each landmark measurement is independent, so we will take the product of the likelihoods over all measurements.
+
+ <p align="right"> <img src="./img/24.jpg" style="right;" alt="The multivariate Gaussian function" width="600" height="400"> </p> 
+
+* x<sub>i</sub> represents the ith landmark measurement for one particular particle.
+* mu<sub>i</sub>  represents the predicted measurement for the map landmark corresponding to the ith measurement.
+* m is the total number of measurements for one particle.
+* sigma is the covariance of the measurement.
+
+The covariance matrix (sigma) is a symmetric square matrix that contains the variance, or uncertainty of each variable in the sensor measurement, as well as the covariance, or correlation, between these variables.
+
+ <p align="right"> <img src="./img/25.jpg" style="right;" alt="The covariance matrix (sigma)" width="600" height="400"> </p> 
+
+In the case of lidar, the variables would be the x and y position of the landmark and vehicle coordinates. The diagonal terms of the covariance matrix, which is the standard deviation of the variable squared.
+
+Below, the orange ovals around each lidar measurement are geometric representations of some covariance matrices. Notice how the covariance changes as you change the diagonal terms. As the x variance term increases, the uncertainty in the x direction also increases.
+ <p align="right"> <img src="./img/26.jpg" style="right;" alt="As the x variance term increases, the uncertainty in the x direction also increases." width="600" height="400"> </p> 
+ 
+Similarly, as the y variance term increases (above), the uncertainty in the y direction also increases. You can think of the covariance matrix as an inverse matrix of weights. The smaller the diagonal term for a certain variable, the more you can trust this variable in the measurement and the higher the weight we can put on it.
+
+The off diagonal terms of the covariance matrix represent the correlation between the two variables.
+For instance, if x increases as y increases, For the project, we will assume the different variables in the sensor measurement are independent, and therefore the off diagonal terms are 0. However, this is often not the case in practice.
+
+ <p align="right"> <img src="./img/27.jpg" style="right;" alt="the correlation between the two variables." width="600" height="200"> </p> 
+ 
+ Now we have done the measurement transformations and associations, we have all the pieces we need to calculate the particle's final weight. The particles final weight will be calculated as the product of each measurement's Multivariate-Gaussian probability density.
+The Multivariate-Gaussian probability density has two dimensions, x and y. The mean of the Multivariate-Gaussian is the measurement's associated landmark position and the Multivariate-Gaussian's standard deviation is described by our initial uncertainty in the x and y ranges. The Multivariate-Gaussian is evaluated at the point of the transformed measurement's position. The formula for the Multivariate-Gaussian can be seen below.
+
+
+
+ <p align="center"> <img src="./img/28.jpg" style="center;" alt="The Multivariate-Gaussian" width="400" height="100"> </p> 
+ 
+ 
+* The standard deviation described the initial uncertainty in the x and y ranges.
+*	x and y are the observations in map coordinates from transformation section and μx, μy are the coordinates of the nearest landmarks. These should correspond to the correct responses from association section.
+* Here are some example in the context of [python](https://github.com/A2Amir/Implement-a-particle-filter-in-the-context-of-Cplus/blob/master/Practice.ipynb) and [C++](https://github.com/A2Amir/Implement-a-particle-filter-in-the-context-of-Cplus/blob/master/C%2B%2B%20code/multiv_gauss.cpp) code to get better intuition.
+
+
+## 4. Calculating Error
+
+To assess how accurate your position estimates were, we are given  the ground truth position of the car for every time step and results, which we have from performing particle filter. We will now discuss two different way to quantify the difference between our results and the ground truth. One way you could report your error is to take the weighted average error of all the particles.
+
+ <p align="right"> <img src="./img/29.jpg" style="center;" alt="Calculating Error" width="600" height="400"> </p> 
+
+
+
+To do this, simply take the root squared error between each particle and ground truth, and multiply it by the particle’s weight. Remember that in this equation, Pi and g are vectors that contain the x position, y position, and yaw of the car in map coordinates. Then, you have to divide by the sum of the weights.
+
+ <p align="right"> <img src="./img/30.jpg" style="center;" alt="Calculating Error" width="600" height="400"> </p> 
+
+
+Another possibility is to just look at the best, or the highest-weighted particle, and simply take the root squared error of this particle. 
+
+**Note**
+ <p align="right"> <img src="./img/31.jpg" style="center;" alt="Calculating Error" > </p> 
+ 
+ 
+## 5. Implementing the Particle Filter
+ 
+### 5.1 Project Introduction
+
+Your robot has been kidnapped and transported to a new location! Luckily it has a map of this location, a (noisy) GPS estimate of its initial location, and lots of (noisy) sensor and control data.
+In this project you will implement a 2 dimensional particle filter in C++. Your particle filter will be given a map and some initial localization information (analogous to what a GPS would provide). At each time step your filter will also get observation and control data.
+
+### 5.1 Running the Code
+
+This project involves the Term 2 Simulator which can be downloaded [here](https://github.com/udacity/self-driving-car-sim/releases).
+This repository includes two files that can be used to set up and install uWebSocketIO for either Linux or Mac systems. For windows you can use either Docker, VMware, or even Windows 10 Bash on Ubuntu to install uWebSocketIO.
+Once the install for uWebSocketIO is complete, the main program can be built and ran by doing the following from the project top directory.
+ 1.	mkdir build
+ 2.	cd build
+ 3.	cmake ..
+ 4.	make
+ 5.	./particle_filter
+
+Alternatively some scripts have been included to streamline this process, these can be leveraged by executing the following in the top directory of the project:
+
+ 1.	./clean.sh
+ 2.	./build.sh
+ 3.	./run.sh
+
+Here is the main protocol that [main.cpp]() uses for uWebSocketIO in communicating with the simulator.
+
+**INPUT: values provided by the simulator to the c++ program**
+1.	sense noisy position data from the simulator
+    1. ["sense_x"]
+    2. ["sense_y"]
+    3. ["sense_theta"]
+
+ 
+2.	get the previous velocity and yaw rate to predict the particle's transitioned state
+    1.	["previous_velocity"]
+    2.	["previous_yawrate"]
+   
+3.	receive noisy observation data from the simulator, in a respective list of x/y values
+    1.	["sense_observations_x"]
+    2.	["sense_observations_y"]
+**OUTPUT: values provided by the c++ program to the simulator**
+
+1.	best particle values used for calculating the error evaluation
+    1.	["best_particle_x"]
+    2.	["best_particle_y"]
+    3.	["best_particle_theta"]
+
+2. Optional message data used for debugging particle's sensing and associations
+
+2.	for respective (x,y) sensed positions ID label
+    1.	["best_particle_associations"]
+
+3.	for respective (x,y) sensed positions
+    1.	["best_particle_sense_x"] <= list of sensed x positions
+    2.	["best_particle_sense_y"] <= list of sensed y positions
+
