@@ -540,7 +540,7 @@ Alternatively some scripts have been included to streamline this process, these 
  2.	./build.sh
  3.	./run.sh
 
-Here is the main protocol that [main.cpp]() uses for uWebSocketIO in communicating with the simulator.
+Here is the main protocol that [main.cpp](https://github.com/A2Amir/Implement-a-particle-filter-in-the-context-of-Cplus/blob/master/src/main.cpp) uses for uWebSocketIO in communicating with the simulator.
 
 **INPUT: values provided by the simulator to the c++ program**
 1.	sense noisy position data from the simulator
@@ -608,7 +608,7 @@ Here is the main protocol that [main.cpp]() uses for uWebSocketIO in communicati
           |   printSamples.cpp (to practice)
           |   multiv_gauss.cpp (to practice)
 
-[map_data.txt]() includes the position of landmarks (in meters) on an arbitrary Cartesian coordinate system. Each row has three columns
+[map_data.txt](https://github.com/A2Amir/Implement-a-particle-filter-in-the-context-of-Cplus/blob/master/data/map_data.txt) includes the position of landmarks (in meters) on an arbitrary Cartesian coordinate system. Each row has three columns
    1.	x position
    2.	y position
    3.	landmark id
