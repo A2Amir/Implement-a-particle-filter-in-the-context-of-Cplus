@@ -290,6 +290,28 @@ To pick the right correspondents, we can use a very simple technique called near
 
 **High signal to noise ratio for sensors and a very accurate motion model are characteristics of the input data that help nearest neighbor data association becomes more effective. Next you will learn about practicing Association.**
 
+Implemention of the finding the nearest landmark Step in the [Particle Filter](https://github.com/A2Amir/Implement-a-particle-filter-in-the-context-of-Cplus/blob/master/src/particle_filter.cpp)
+
+~~~c++
+std::vector<LandmarkObs> ParticleFilter::FindnearbyLandmarks(double x, double y, double range, std::vector<Map::single_landmark_s> landmarks)
+{
+    std::vector<LandmarkObs> result;
+    for (Map::single_landmark_s landmark : landmarks)
+    {
+        double xDelta = x - landmark.x_f;
+        double yDelta = y - landmark.y_f;
+
+        if (xDelta * xDelta + yDelta * yDelta <= range * range)
+        {
+            result.push_back(LandmarkObs{landmark.id_i, landmark.x_f, landmark.y_f});
+        }
+    }
+    return result;
+}
+
+~~~
+
+
 #### Practicing Association 
 
 Now that observations have been transformed into the map's coordinate space, the next step is to associate each transformed observation with a landmark identifier. In the map below we have 5 total landmarks each identified as L1, L2, L3, L4, L5, and each with a known map location.
@@ -303,7 +325,33 @@ By looking at the distances of each transformed Obseravation(TOBS1 to 3) to each
 * TOBS2 (2,2) associated with L2 (2,1)
 * TOBS3(0,5)   associated with L5 (4,7) (TOBS3 can be associated with either L2, or L5, since they are the same distance apart)
 
+Implemention of the Association Step in the [Particle Filter](https://github.com/A2Amir/Implement-a-particle-filter-in-the-context-of-Cplus/blob/master/src/particle_filter.cpp)
 
+~~~c++
+void ParticleFilter::dataAssociation(vector<LandmarkObs> predicted, vector<LandmarkObs>& observations)
+{
+
+   for (LandmarkObs &observation : observations)
+   {
+       double minDist = numeric_limits<double>::max();
+
+       for (LandmarkObs &prediction : predicted)
+        {
+            double xDistance = observation.x - prediction.x;
+            double yDistance = observation.y - prediction.y;
+
+            double distance = xDistance * xDistance + yDistance * yDistance;
+
+            if (distance < minDist)
+            {
+                minDist = distance;
+                observation.id = prediction.id;
+            }
+        }
+   }
+
+}
+~~~
 
 ### 3.3 Update Weights
 
