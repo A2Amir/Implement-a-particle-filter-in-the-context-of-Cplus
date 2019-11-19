@@ -325,24 +325,25 @@ Here is the main protocol that [main.cpp]() uses for uWebSocketIO in communicati
 
  
 2.	get the previous velocity and yaw rate to predict the particle's transitioned state
-   1.	["previous_velocity"]
-   2.	["previous_yawrate"]
+    1.	["previous_velocity"]
+    2.	["previous_yawrate"]
+   
 3.	receive noisy observation data from the simulator, in a respective list of x/y values
-   1.	["sense_observations_x"]
-   2.	["sense_observations_y"]
+    1.	["sense_observations_x"]
+    2.	["sense_observations_y"]
 **OUTPUT: values provided by the c++ program to the simulator**
 
 1.	best particle values used for calculating the error evaluation
-   1.	["best_particle_x"]
-   2.	["best_particle_y"]
-   3.	["best_particle_theta"]
+    1.	["best_particle_x"]
+    2.	["best_particle_y"]
+    3.	["best_particle_theta"]
 
 2. Optional message data used for debugging particle's sensing and associations
 
-9.	for respective (x,y) sensed positions ID label
-   1.	["best_particle_associations"]
+2.	for respective (x,y) sensed positions ID label
+    1.	["best_particle_associations"]
 
-10.	for respective (x,y) sensed positions
-   1.	["best_particle_sense_x"] <= list of sensed x positions
-   2.	["best_particle_sense_y"] <= list of sensed y positions
+3.	for respective (x,y) sensed positions
+    1.	["best_particle_sense_x"] <= list of sensed x positions
+    2.	["best_particle_sense_y"] <= list of sensed y positions
 
