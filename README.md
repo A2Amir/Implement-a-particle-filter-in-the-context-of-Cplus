@@ -298,7 +298,7 @@ Another possibility is to just look at the best, or the highest-weighted particl
 Your robot has been kidnapped and transported to a new location! Luckily it has a map of this location, a (noisy) GPS estimate of its initial location, and lots of (noisy) sensor and control data.
 In this project you will implement a 2 dimensional particle filter in C++. Your particle filter will be given a map and some initial localization information (analogous to what a GPS would provide). At each time step your filter will also get observation and control data.
 
-### 5.1 Running the Code
+### 5.2 Running the Code
 
 This project involves the Term 2 Simulator which can be downloaded [here](https://github.com/udacity/self-driving-car-sim/releases).
 This repository includes two files that can be used to set up and install uWebSocketIO for either Linux or Mac systems. For windows you can use either Docker, VMware, or even Windows 10 Bash on Ubuntu to install uWebSocketIO.
@@ -331,6 +331,7 @@ Here is the main protocol that [main.cpp]() uses for uWebSocketIO in communicati
 3.	receive noisy observation data from the simulator, in a respective list of x/y values
     1.	["sense_observations_x"]
     2.	["sense_observations_y"]
+
 **OUTPUT: values provided by the c++ program to the simulator**
 
 1.	best particle values used for calculating the error evaluation
@@ -340,10 +341,45 @@ Here is the main protocol that [main.cpp]() uses for uWebSocketIO in communicati
 
 2. Optional message data used for debugging particle's sensing and associations
 
-2.	for respective (x,y) sensed positions ID label
+3.	for respective (x,y) sensed positions ID label
     1.	["best_particle_associations"]
 
-3.	for respective (x,y) sensed positions
+4.	for respective (x,y) sensed positions
     1.	["best_particle_sense_x"] <= list of sensed x positions
     2.	["best_particle_sense_y"] <= list of sensed y positions
+    
+### 5.2 The directory structure is as follows:
+
+
+root
+|   build.sh
+|   clean.sh
+|   CMakeLists.txt
+|   README.md
+|   run.sh
+|   README.md
+|   Practice.ipynb
+|   LICENSE
+|   .gitattributes
+|   .gitignore
+|
+|___img
+|   |   images
+|     
+|
+|
+|___data
+|   |   
+|   |   map_data.txt
+|   
+|   
+|___src
+    |   helper_functions.h
+    |   main.cpp
+    |   map.h
+    |   particle_filter.cpp
+    |   particle_filter.h
+    |   ConvertingLandmarkObservations.cpp (to practice)
+    |   printSamples.cpp (to practice)
+    |   multiv_gauss.cpp (to practice)
 
