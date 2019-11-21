@@ -170,7 +170,7 @@ void ParticleFilter::prediction(double delta_t, double std_pos[],double velocity
         double pred_x;
         double pred_y;
         double pred_theta;
-        if (fabs(yaw_rate)<0.0001)
+        if (fabs(yaw_rate)<0.001)
         {
             pred_x=particle_x+velocity*cos(particle_theta)*delta_t;
             pred_y=particle_y+velocity*sin(particle_theta)*delta_t;
@@ -179,7 +179,7 @@ void ParticleFilter::prediction(double delta_t, double std_pos[],double velocity
         {
             pred_x=particle_x+(velocity/yaw_rate)*(sin(particle_theta+(yaw_rate*delta_t))-sin(particle_theta));
             pred_y=particle_y+(velocity/yaw_rate)*(cos(particle_theta)-cos(particle_theta+ (yaw_rate*delta_t)));
-            pred_x=particle_theta+(yaw_rate*delta_t);
+            pred_theta=particle_theta+(yaw_rate*delta_t);
 
         }
         normal_distribution<double> dist_x(pred_x,std_pos[0]);
