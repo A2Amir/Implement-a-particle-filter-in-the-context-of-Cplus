@@ -116,7 +116,7 @@ Implemention of the Initialization in the [Particle Filter](https://github.com/A
 void ParticleFilter::init(double x, double y, double theta, double std[])
 {
 
-  num_particles = 100;  // TODO: Set the number of particles
+  num_particles = 100;  //  Set the number of particles
   normal_distribution<double> dist_x(x,std[0]);
   normal_distribution<double> dist_y(y,std[1]);
   normal_distribution<double> dist_theta(theta,std[2]);
