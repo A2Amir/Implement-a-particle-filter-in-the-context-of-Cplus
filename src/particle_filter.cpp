@@ -36,7 +36,8 @@ void ParticleFilter::init(double x, double y, double theta, double std[]) {
   normal_distribution<double> dist_x(x,std[0]);
   normal_distribution<double> dist_y(y,std[1]);
   normal_distribution<double> dist_theta(theta,std[2]);
-  default_random_engine gen;
+  random_device rd;
+  default_random_engine gen(rd());
   for (int i = 0; i < num_particles; i++)
   {
     Particle currentParticle;
@@ -63,7 +64,7 @@ void ParticleFilter::prediction(double delta_t, double std_pos[],
    *  http://en.cppreference.com/w/cpp/numeric/random/normal_distribution
    *  http://www.cplusplus.com/reference/random/default_random_engine/
    */
-   default_random_engine eng;
+
    for (int i = 0; i < num_particles; i++)
    {
         double particle_x=particles[i].x;
@@ -72,7 +73,7 @@ void ParticleFilter::prediction(double delta_t, double std_pos[],
         double pred_x;
         double pred_y;
         double pred_theta;
-        if (fabs(yaw_rate)<0.0001)
+        if (fabs(yaw_rate)<0.001)
         {
             pred_x=particle_x+velocity*cos(particle_theta)*delta_t;
             pred_y=particle_y+velocity*sin(particle_theta)*delta_t;
@@ -81,14 +82,15 @@ void ParticleFilter::prediction(double delta_t, double std_pos[],
         {
             pred_x=particle_x+(velocity/yaw_rate)*(sin(particle_theta+(yaw_rate*delta_t))-sin(particle_theta));
             pred_y=particle_y+(velocity/yaw_rate)*(cos(particle_theta)-cos(particle_theta+ (yaw_rate*delta_t)));
-            pred_x=particle_theta+(yaw_rate*delta_t);
+            pred_theta=particle_theta+(yaw_rate*delta_t);
 
         }
         normal_distribution<double> dist_x(pred_x,std_pos[0]);
         normal_distribution<double> dist_y(pred_y,std_pos[1]);
         normal_distribution<double> dist_theta(pred_theta,std_pos[2]);
-        default_random_engine gen;
 
+        random_device rd;
+        default_random_engine gen(rd());
         // Set particle state
         particles[i].x = dist_x(gen);
         particles[i].y = dist_y(gen);
